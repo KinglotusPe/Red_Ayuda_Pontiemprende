@@ -87,17 +87,3 @@ docker compose -f docker/docker-compose.yml up -d --build
 6. **Directorio Oficial de Emergencia (Ayacucho)**:
    - Acceso con un toque a la Policía Nacional del Perú (105), SAMU (106), Bomberos (116) y Serenazgo de Huamanga (066-312444).
 
----
-
-## 📚 Documentación Técnica Detallada
-
-- [Plan Maestro de Arquitectura y Construcción](docs/MASTER_PLAN.md)
-- [Arquitectura de Software y Diagramas](docs/architecture.md)
-- [Esquema de Base de Datos y Diccionario de Datos](docs/database.md)
-- [Especificación de la API REST y WebSockets](docs/api.md)
-- [Protocolos de Seguridad y PIN de Coacción](docs/security.md)
-- [Flujo de Demostración del SOS](docs/emergency-flow.md)
-- [Arquitectura de la App Móvil Flutter](docs/mobile.md)
-- [Matriz de Soporte Android vs iOS](docs/platform-support.md)
-- [Guía de Despliegue e Infraestructura](docs/deployment.md)
-- [Límites y Consideraciones de Plataforma](docs/limitations.md)
