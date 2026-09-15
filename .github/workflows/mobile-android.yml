@@ -34,6 +34,18 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Scaffold Official Platform Native Directories
+        working-directory: ./mobile
+        run: |
+          mkdir -p /tmp/mobile_backup
+          cp -f android/app/src/main/AndroidManifest.xml /tmp/mobile_backup/AndroidManifest.xml 2>/dev/null || true
+          rm -rf android ios
+          flutter create --org pe.redayuda --project-name red_ayuda --platforms=android,ios .
+          chmod +x android/gradlew 2>/dev/null || true
+          if [ -f /tmp/mobile_backup/AndroidManifest.xml ]; then
+            cp -f /tmp/mobile_backup/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+          fi
+
       - name: Verify Flutter & Environment
         working-directory: ./mobile
         run: flutter doctor -v

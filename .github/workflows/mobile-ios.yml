@@ -28,6 +28,17 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Scaffold Official Platform Native Directories
+        working-directory: ./mobile
+        run: |
+          mkdir -p /tmp/mobile_backup
+          cp -f ios/Runner/Info.plist /tmp/mobile_backup/Info.plist 2>/dev/null || true
+          rm -rf android ios
+          flutter create --org pe.redayuda --project-name red_ayuda --platforms=android,ios .
+          if [ -f /tmp/mobile_backup/Info.plist ]; then
+            cp -f /tmp/mobile_backup/Info.plist ios/Runner/Info.plist
+          fi
+
       - name: Install Dependencies
         working-directory: ./mobile
         run: flutter pub get
@@ -40,17 +51,22 @@ jobs:
         working-directory: ./mobile
         run: flutter build ios --no-codesign --release
 
-      - name: Package iOS App Bundle
+      - name: Package iOS App Bundle & IPA
         working-directory: ./mobile
         run: |
           mkdir -p build_outputs
           cd build/ios/iphoneos
+          mkdir -p Payload
+          cp -r Runner.app Payload/
+          zip -r ../../../build_outputs/RED-Ayuda-iOS.ipa Payload
           zip -r ../../../build_outputs/RED-Ayuda-iOS-Runner-unsigned.zip Runner.app
           cd ../../..
 
-      - name: Upload iOS App Bundle Artifact
+      - name: Upload iOS App Bundle & IPA Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: RED-Ayuda-iOS-Package
-          path: mobile/build_outputs/RED-Ayuda-iOS-Runner-unsigned.zip
+          path: |
+            mobile/build_outputs/RED-Ayuda-iOS.ipa
+            mobile/build_outputs/RED-Ayuda-iOS-Runner-unsigned.zip
           retention-days: 30

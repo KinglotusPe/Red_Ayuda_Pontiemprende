@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pe.redayuda.app">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Permisos de Emergencia y Ubicación Redundante -->
     <uses-permission android:name="android.permission.INTERNET" />

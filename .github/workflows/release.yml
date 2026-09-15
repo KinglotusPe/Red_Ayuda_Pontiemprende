@@ -9,8 +9,63 @@ permissions:
   contents: write
 
 jobs:
+  build-ios:
+    name: Build iOS Package
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Scaffold Official Platform Native Directories
+        working-directory: ./mobile
+        run: |
+          mkdir -p /tmp/mobile_backup
+          cp -f ios/Runner/Info.plist /tmp/mobile_backup/Info.plist 2>/dev/null || true
+          rm -rf android ios
+          flutter create --org pe.redayuda --project-name red_ayuda --platforms=android,ios .
+          if [ -f /tmp/mobile_backup/Info.plist ]; then
+            cp -f /tmp/mobile_backup/Info.plist ios/Runner/Info.plist
+          fi
+
+      - name: Install Dependencies
+        working-directory: ./mobile
+        run: flutter pub get
+
+      - name: Build iOS (No Codesign)
+        working-directory: ./mobile
+        run: flutter build ios --no-codesign --release
+
+      - name: Package iOS Downloads
+        working-directory: ./mobile
+        run: |
+          mkdir -p build_outputs
+          cd build/ios/iphoneos
+          mkdir -p Payload
+          cp -r Runner.app Payload/
+          zip -r ../../../build_outputs/RED-Ayuda-iOS-${{ github.ref_name }}.ipa Payload
+          zip -r ../../../build_outputs/RED-Ayuda-iOS-Runner-${{ github.ref_name }}.zip Runner.app
+          cd ../../..
+
+      - name: Upload iOS Assets Temporary
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-ios-assets
+          path: |
+            mobile/build_outputs/RED-Ayuda-iOS-${{ github.ref_name }}.ipa
+            mobile/build_outputs/RED-Ayuda-iOS-Runner-${{ github.ref_name }}.zip
+          retention-days: 1
+
   build-and-release:
     name: Build All Artifacts and Publish Release
+    needs: [build-ios]
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +84,18 @@ jobs:
           flutter-version: '3.24.x'
           channel: 'stable'
           cache: true
+
+      - name: Scaffold Official Platform Native Directories
+        working-directory: ./mobile
+        run: |
+          mkdir -p /tmp/mobile_backup
+          cp -f android/app/src/main/AndroidManifest.xml /tmp/mobile_backup/AndroidManifest.xml 2>/dev/null || true
+          rm -rf android ios
+          flutter create --org pe.redayuda --project-name red_ayuda --platforms=android,ios .
+          chmod +x android/gradlew 2>/dev/null || true
+          if [ -f /tmp/mobile_backup/AndroidManifest.xml ]; then
+            cp -f /tmp/mobile_backup/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+          fi
 
       - name: Install Mobile Dependencies
         working-directory: ./mobile
@@ -54,12 +121,19 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -B -DskipTests
 
+      - name: Download iOS Assets
+        uses: actions/download-artifact@v4
+        with:
+          name: release-ios-assets
+          path: release_assets
+
       - name: Prepare Release Files
         run: |
           mkdir -p release_assets
           cp mobile/build/app/outputs/flutter-apk/app-release.apk release_assets/RED-Ayuda-${{ github.ref_name }}.apk
           cp mobile/build/app/outputs/bundle/release/app-release.aab release_assets/RED-Ayuda-${{ github.ref_name }}.aab
           cp backend/target/*.jar release_assets/red-ayuda-backend-${{ github.ref_name }}.jar
+          ls -la release_assets/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -67,6 +141,8 @@ jobs:
           files: |
             release_assets/RED-Ayuda-${{ github.ref_name }}.apk
             release_assets/RED-Ayuda-${{ github.ref_name }}.aab
+            release_assets/RED-Ayuda-iOS-${{ github.ref_name }}.ipa
+            release_assets/RED-Ayuda-iOS-Runner-${{ github.ref_name }}.zip
             release_assets/red-ayuda-backend-${{ github.ref_name }}.jar
           name: RED AYUDA ${{ github.ref_name }}
           draft: false
@@ -78,9 +154,11 @@ jobs:
             ### 📱 Descargas Disponibles:
             - **Android APK (Instalación directa):** `RED-Ayuda-${{ github.ref_name }}.apk`
             - **Android App Bundle (Google Play Store):** `RED-Ayuda-${{ github.ref_name }}.aab`
+            - **iOS IPA (Instalación Sideload / AltStore / TrollStore):** `RED-Ayuda-iOS-${{ github.ref_name }}.ipa`
+            - **iOS Runner Bundle (ZIP comprimido):** `RED-Ayuda-iOS-Runner-${{ github.ref_name }}.zip`
             - **Backend JAR Ejecutable (Java 21):** `red-ayuda-backend-${{ github.ref_name }}.jar`
 
-            ### 🛠️ Novedades de la versión:
+            ### 🛠️ Características Principales:
             - Sistema de alerta SOS instantáneo con cuenta regresiva de 10s y cancelación por PIN normal.
             - Mecanismo de seguridad silencioso ante agresiones mediante PIN de coacción.
             - Ubicación redundante: GPS satelital, aproximación de red y última conocida.
