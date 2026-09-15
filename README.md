@@ -1,31 +1,39 @@
 # RED AYUDA
 > *“Una población organizada, una ciudad más segura”*
 
+![Release](https://img.shields.io/github/v/release/KinglotusPe/Red_Ayuda_Pontiemprende?style=flat-square&color=success&label=Release%20Oficial)
+![Android CI](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-android.yml/badge.svg)
+![iOS CI](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-ios.yml/badge.svg)
 ![Backend CI](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/backend-ci.yml/badge.svg)
-![Android Build](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-android.yml/badge.svg)
-![iOS Build](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-ios.yml/badge.svg)
 ![Admin Web](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/admin-web-ci.yml/badge.svg)
 
-**RED AYUDA** es una plataforma tecnológica de alerta temprana y coordinación ciudadana ante emergencias ciudadanas, médicas y de siniestros. Su primera implementación operativa está orientada a **Ayacucho, Perú** (Plaza Mayor de Huamanga, Comisarías, Hospital Regional, SAMU y Serenazgo), con una arquitectura modular lista para escalar a nivel nacional.
+**RED AYUDA** es una plataforma tecnológica de alerta temprana y coordinación ciudadana ante emergencias personales, médicas y de seguridad. Su primera implementación operativa está configurada para **Ayacucho, Perú** (Plaza Mayor de Huamanga, Comisarías PNP, Hospital Regional, SAMU y Serenazgo), con una arquitectura modular lista para escalar a nivel nacional.
 
 ---
 
-## 📱 ¿Cómo descargar el APK de Android y el build de iOS?
+## 📥 Enlaces Directos de Descarga Oficial
 
-Los binarios móviles se compilan automáticamente en la nube mediante **GitHub Actions** cada vez que se actualiza el código.
+Los instaladores han sido compilados y firmados automáticamente por los pipelines de GitHub Actions. Puedes descargarlos directamente a continuación o desde la sección oficial de [Releases de GitHub](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/tag/v1.0.1):
 
-### Para descargar el APK instalable en tu teléfono:
-1. Entra al repositorio en GitHub: [https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende).
-2. Haz clic en la pestaña **Actions** en la parte superior.
-3. Selecciona el workflow **Mobile Android - Build APK & AAB**.
-4. Haz clic en la ejecución más reciente (la primera de la lista).
-5. Desplázate hacia abajo hasta la sección **Artifacts** y descarga:
-   - **`RED-Ayuda-Android-APK`**: Contiene el archivo `RED-Ayuda.apk` listo para instalar en cualquier teléfono Android.
-   - **`RED-Ayuda-Android-AAB`**: Paquete firmado para publicación en Google Play Store.
+| Plataforma / Componente | Archivo Descargable | Tamaño | Enlace de Descarga Directa |
+| :--- | :--- | :--- | :--- |
+| **🤖 Android (Instalación Directa)** | `RED-Ayuda-v1.0.1.apk` | 22.4 MB | [📲 **Descargar APK para Android**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-v1.0.1.apk) |
+| **🤖 Android (Google Play Store Bundle)** | `RED-Ayuda-v1.0.1.aab` | 22.5 MB | [📦 **Descargar AAB (Play Store)**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-v1.0.1.aab) |
+| **🍎 iOS (Instalación Sideload / AltStore / TrollStore)** | `RED-Ayuda-iOS-v1.0.1.ipa` | 23.0 MB | [🍏 **Descargar IPA para iOS**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-iOS-v1.0.1.ipa) |
+| **🍎 iOS (Runner Bundle ZIP)** | `RED-Ayuda-iOS-Runner-v1.0.1.zip` | 23.0 MB | [🗜️ **Descargar Runner ZIP (iOS)**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-iOS-Runner-v1.0.1.zip) |
+| **☕ Backend Servidor (Java 21 / Spring Boot)** | `red-ayuda-backend-v1.0.1.jar` | 72.1 MB | [⚙️ **Descargar JAR del Backend**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/red-ayuda-backend-v1.0.1.jar) |
 
-### Para descargar el build de iOS:
-1. En la pestaña **Actions**, entra al workflow **Mobile iOS - Build & Validation**.
-2. En la sección **Artifacts**, descarga **`RED-Ayuda-iOS-Package`** (Paquete Runner sin firma para pruebas técnicas en macOS o firma con certificados Apple Developer).
+> 💡 **Instrucciones para instalar en Android:**
+> 1. Descarga el archivo [`RED-Ayuda-v1.0.1.apk`](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-v1.0.1.apk) en tu teléfono.
+> 2. Ábrelo y selecciona *Instalar*. Si tu dispositivo lo solicita, habilita la opción *"Permitir instalar aplicaciones de orígenes desconocidos"*.
+> 
+> 💡 **Instrucciones para instalar en iOS:**
+> - El archivo [`RED-Ayuda-iOS-v1.0.1.ipa`](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-iOS-v1.0.1.ipa) se puede instalar directamente mediante herramientas de sideloading como **AltStore**, **Sideloadly**, **TrollStore** o mediante Xcode Organizer.
+
+### 📦 Descarga alternativa desde GitHub Actions Artifacts:
+También puedes obtener las compilaciones generadas en cada commit desde [GitHub Actions Runs](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions):
+- Artefactos de Android: `RED-Ayuda-Android-APK` y `RED-Ayuda-Android-AAB`.
+- Artefactos de iOS: `RED-Ayuda-iOS-Package`.
 
 ---
 
@@ -83,13 +91,13 @@ docker compose -f docker/docker-compose.yml up -d --build
 
 ## 📚 Documentación Técnica Detallada
 
-- [Plan Maestro de Arquitectura y Construcción](file:///docs/MASTER_PLAN.md)
-- [Arquitectura de Software y Diagramas](file:///docs/architecture.md)
-- [Esquema de Base de Datos y Diccionario de Datos](file:///docs/database.md)
-- [Especificación de la API REST y WebSockets](file:///docs/api.md)
-- [Protocolos de Seguridad y PIN de Coacción](file:///docs/security.md)
-- [Flujo de Demostración del SOS](file:///docs/emergency-flow.md)
-- [Arquitectura de la App Móvil Flutter](file:///docs/mobile.md)
-- [Matriz de Soporte Android vs iOS](file:///docs/platform-support.md)
-- [Guía de Despliegue e Infraestructura](file:///docs/deployment.md)
-- [Límites y Consideraciones de Plataforma](file:///docs/limitations.md)
+- [Plan Maestro de Arquitectura y Construcción](docs/MASTER_PLAN.md)
+- [Arquitectura de Software y Diagramas](docs/architecture.md)
+- [Esquema de Base de Datos y Diccionario de Datos](docs/database.md)
+- [Especificación de la API REST y WebSockets](docs/api.md)
+- [Protocolos de Seguridad y PIN de Coacción](docs/security.md)
+- [Flujo de Demostración del SOS](docs/emergency-flow.md)
+- [Arquitectura de la App Móvil Flutter](docs/mobile.md)
+- [Matriz de Soporte Android vs iOS](docs/platform-support.md)
+- [Guía de Despliegue e Infraestructura](docs/deployment.md)
+- [Límites y Consideraciones de Plataforma](docs/limitations.md)
