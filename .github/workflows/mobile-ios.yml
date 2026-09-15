@@ -1,0 +1,56 @@
+name: Mobile iOS - Build & Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/mobile-ios.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'mobile/**'
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build and Validate iOS App
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        working-directory: ./mobile
+        run: flutter pub get
+
+      - name: Run Flutter Tests
+        working-directory: ./mobile
+        run: flutter test
+
+      - name: Build iOS (No Codesign)
+        working-directory: ./mobile
+        run: flutter build ios --no-codesign --release
+
+      - name: Package iOS App Bundle
+        working-directory: ./mobile
+        run: |
+          mkdir -p build_outputs
+          cd build/ios/iphoneos
+          zip -r ../../../build_outputs/RED-Ayuda-iOS-Runner-unsigned.zip Runner.app
+          cd ../../..
+
+      - name: Upload iOS App Bundle Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RED-Ayuda-iOS-Package
+          path: mobile/build_outputs/RED-Ayuda-iOS-Runner-unsigned.zip
+          retention-days: 30

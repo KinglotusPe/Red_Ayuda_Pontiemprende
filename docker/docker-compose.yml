@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # Base de Datos PostgreSQL 16
+  postgres:
+    image: postgres:16-alpine
+    container_name: red_ayuda_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: red_ayuda_db
+      POSTGRES_USER: redayuda_user
+      POSTGRES_PASSWORD: redayuda_secret_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U redayuda_user -d red_ayuda_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # MinIO (Almacenamiento privado de audios compatible con S3)
+  minio:
+    image: minio/minio:latest
+    container_name: red_ayuda_minio
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio_access_key
+      MINIO_ROOT_PASSWORD: minio_secret_password
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  # Backend Spring Boot 3 Java 21
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend.Dockerfile
+    container_name: red_ayuda_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/red_ayuda_db
+      SPRING_DATASOURCE_USERNAME: redayuda_user
+      SPRING_DATASOURCE_PASSWORD: redayuda_secret_password
+      S3_ENDPOINT: http://minio:9000
+      S3_ACCESS_KEY: minio_access_key
+      S3_SECRET_KEY: minio_secret_password
+      S3_BUCKET_NAME: red-ayuda-audios
+      JWT_SECRET: super_secret_jwt_key_red_ayuda_minimum_32_characters_for_hmac_sha256
+    ports:
+      - "8080:8080"
+
+  # Panel Web Administrativo & Portal de Compartición de Emergencias
+  admin-web:
+    build:
+      context: ..
+      dockerfile: docker/admin-web.Dockerfile
+    container_name: red_ayuda_admin_web
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
+  minio_data:

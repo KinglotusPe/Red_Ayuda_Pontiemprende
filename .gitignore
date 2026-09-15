@@ -1,0 +1,80 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Environment and Secrets (CRITICAL: NEVER COMMIT SECRETS)
+.env
+.env.local
+.env.production
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+google-services.json
+GoogleService-Info.plist
+
+# Java & Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+
+# Flutter & Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+/mobile/build/
+/mobile/.flutter-plugins
+/mobile/.flutter-plugins-dependencies
+/mobile/.packages
+/mobile/.dart_tool/
+/mobile/ios/Flutter/Generated.xcconfig
+/mobile/ios/Flutter/app.framework
+/mobile/ios/Flutter/Flutter.framework
+/mobile/ios/Flutter/Flutter.podspec
+/mobile/ios/Pods/
+/mobile/ios/.symlinks/
+/mobile/ios/profile
+/mobile/ios/Debug
+/mobile/ios/Release
+/mobile/android/.gradle/
+/mobile/android/local.properties
+/mobile/android/gradlew
+/mobile/android/gradlew.bat
+
+# Node & Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.antigravity/
+.fleet/
+
+# Docker volumes
+docker-data/
+minio-data/
+pgdata/

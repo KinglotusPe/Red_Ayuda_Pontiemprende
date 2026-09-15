@@ -1,0 +1,15 @@
+{
+  "name": "red-ayuda-admin-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Panel Administrativo y Portal de Seguimiento Compartido de RED AYUDA",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vite": "^5.4.2"
+  }
+}

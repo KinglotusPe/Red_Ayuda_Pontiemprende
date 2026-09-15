@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RED AYUDA — Plataforma de Alerta y Coordinación Ciudadana</title>
+  <meta name="description" content="Sistema de alerta temprana y coordinación ciudadana ante emergencias. Ayacucho, Perú." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Leaflet Map CDN for OpenStreetMap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Barra de Navegación Superior -->
+    <header class="app-header">
+      <div class="header-container">
+        <div class="brand">
+          <div class="brand-badge">SOS</div>
+          <div>
+            <h1 class="brand-title">RED AYUDA</h1>
+            <p class="brand-slogan">Una población organizada, una ciudad más segura</p>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <button id="nav-share-btn" class="nav-btn active" onclick="app.showShareView()">Portal de Seguimiento</button>
+          <button id="nav-admin-btn" class="nav-btn" onclick="app.showAdminView()">Centro de Control</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- VISTA 1: Portal de Seguimiento Compartido (/emergency/share/:token) -->
+    <main id="share-view" class="view-container active">
+      <div class="emergency-banner pulse">
+        <div class="banner-content">
+          <span class="emergency-badge">EMERGENCIA EN CURSO</span>
+          <h2 id="victim-name" class="emergency-title">Carlos Mendoza Quispe</h2>
+          <p id="emergency-meta" class="emergency-subtitle">Tipo: ROBO EN PROCESO • Ayacucho Centro</p>
+        </div>
+        <div class="banner-status">
+          <div class="status-indicator live"></div>
+          <span>TRANSMITIENDO EN VIVO</span>
+        </div>
+      </div>
+
+      <div class="grid-2-col">
+        <!-- Mapa en Tiempo Real con OpenStreetMap / Leaflet -->
+        <section class="card map-card">
+          <div class="card-header">
+            <h3>Ubicación Satelital y Desplazamiento</h3>
+            <span id="loc-accuracy" class="badge badge-info">Precisión: ±12 m</span>
+          </div>
+          <div id="share-map" class="map-box"></div>
+          <div class="card-footer">
+            <span id="last-updated-text">Última actualización satelital: Hace 5 segundos</span>
+            <span id="movement-state" class="badge badge-warning">DESPLAZAMIENTO</span>
+          </div>
+        </section>
+
+        <!-- Panel de Información, Audio y Llamadas de Auxilio Rápido -->
+        <section class="card action-card">
+          <div class="card-header">
+            <h3>Telemetría y Soporte Inmediato</h3>
+          </div>
+
+          <!-- Datos de Batería y Conectividad -->
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Nivel de Batería</span>
+              <strong id="battery-val" class="telemetry-val">85% (Óptimo)</strong>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Conectividad</span>
+              <strong id="network-val" class="telemetry-val text-success">4G / GPS Fijo</strong>
+            </div>
+          </div>
+
+          <!-- Reproductor de Audio Autorizado de Emergencia -->
+          <div class="audio-box">
+            <div class="audio-header">
+              <span class="audio-icon">🎙️</span>
+              <div>
+                <strong>Audio Ambiental de Emergencia (5s)</strong>
+                <p class="text-muted">Capturado tras activarse el botón SOS. Acceso cifrado temporal.</p>
+              </div>
+            </div>
+            <audio id="emergency-audio" controls class="audio-player">
+              <source id="audio-source" src="" type="audio/aac">
+              Tu navegador no soporta reproducción de audio.
+            </audio>
+          </div>
+
+          <!-- Botones de Enlace Telefónico Oficial Directo -->
+          <div class="emergency-buttons-section">
+            <p class="section-title">COMUNICACIÓN INMEDIATA CON SERVICIOS OFICIALES</p>
+            <div class="button-grid">
+              <a href="tel:105" class="btn-service btn-police">
+                <span class="btn-icon">👮</span>
+                <div>
+                  <strong>Llamar a Policía</strong>
+                  <small>Central 105</small>
+                </div>
+              </a>
+              <a href="tel:106" class="btn-service btn-samu">
+                <span class="btn-icon">🚑</span>
+                <div>
+                  <strong>Llamar a SAMU</strong>
+                  <small>Médica 106</small>
+                </div>
+              </a>
+              <a href="tel:116" class="btn-service btn-bomberos">
+                <span class="btn-icon">🚒</span>
+                <div>
+                  <strong>Llamar Bomberos</strong>
+                  <small>Central 116</small>
+                </div>
+              </a>
+              <a href="tel:066312444" class="btn-service btn-serenazgo">
+                <span class="btn-icon">🛡️</span>
+                <div>
+                  <strong>Serenazgo Huamanga</strong>
+                  <small>(066) 31-2444</small>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- VISTA 2: Panel Administrativo de Control (/admin) -->
+    <main id="admin-view" class="view-container">
+      <div class="admin-header-row">
+        <div>
+          <h2>Panel Administrativo — Centro de Operaciones Ayacucho</h2>
+          <p class="text-muted">Monitoreo en tiempo real de incidentes ciudadanos, directorio y auditoría</p>
+        </div>
+        <button class="btn btn-refresh" onclick="app.refreshAdminData()">Actualizar Métricas</button>
+      </div>
+
+      <!-- Tarjetas de Estadísticas Principales -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-title">EMERGENCIAS ACTIVAS</span>
+          <strong id="stat-activas" class="stat-num text-danger">2</strong>
+          <span class="stat-trend">En atención inmediata</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">INCIDENTES DE HOY</span>
+          <strong id="stat-hoy" class="stat-num text-warning">7</strong>
+          <span class="stat-trend">Huamanga / Ayacucho</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">TOTAL CIUDADANOS</span>
+          <strong id="stat-usuarios" class="stat-num text-info">1,240</strong>
+          <span class="stat-trend">Verificados</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">TASA DE FALSAS ALARMAS</span>
+          <strong id="stat-falsas" class="stat-num text-success">1.4%</strong>
+          <span class="stat-trend">Índice controlado</span>
+        </div>
+      </div>
+
+      <div class="grid-2-col">
+        <!-- Mapa General de Incidentes Activos -->
+        <section class="card">
+          <div class="card-header">
+            <h3>Mapa Operativo de Incidentes Activos</h3>
+            <span class="badge badge-danger">2 Activas</span>
+          </div>
+          <div id="admin-map" class="map-box"></div>
+        </section>
+
+        <!-- Lista de Alertas en Tiempo Real -->
+        <section class="card">
+          <div class="card-header">
+            <h3>Registro de Emergencias en Curso</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Ciudadano</th>
+                  <th>Hora</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="admin-emergency-tbody">
+                <tr>
+                  <td><span class="badge badge-danger">ROBO</span></td>
+                  <td>Carlos Mendoza</td>
+                  <td>18:30:15</td>
+                  <td><span class="badge badge-warning">ACTIVA</span></td>
+                  <td><button class="btn-sm" onclick="alert('Centrando en mapa...')">Rastrear</button></td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-info">ACCIDENTE</span></td>
+                  <td>Lucía Morales</td>
+                  <td>18:14:02</td>
+                  <td><span class="badge badge-info">EN_ATENCIÓN</span></td>
+                  <td><button class="btn-sm" onclick="alert('Centrando en mapa...')">Rastrear</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- Directorio Telefónico Administrativo -->
+      <section class="card mt-4">
+        <div class="card-header">
+          <h3>Directorio de Enlace Rápido para Ayacucho</h3>
+          <button class="btn-sm btn-primary" onclick="alert('Agregar nuevo teléfono al directorio oficial')">+ Nuevo Teléfono</button>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Entidad</th>
+                <th>Tipo</th>
+                <th>Número de Emergencia</th>
+                <th>Distrito</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Policía Nacional del Perú</td>
+                <td>POLICIA</td>
+                <td><strong>105</strong></td>
+                <td>Ayacucho Central</td>
+                <td><span class="badge badge-success">Verificado</span></td>
+              </tr>
+              <tr>
+                <td>SAMU Emergencias Médicas</td>
+                <td>SAMU</td>
+                <td><strong>106</strong></td>
+                <td>Huamanga</td>
+                <td><span class="badge badge-success">Verificado</span></td>
+              </tr>
+              <tr>
+                <td>Bomberos Voluntarios B-63</td>
+                <td>BOMBEROS</td>
+                <td><strong>116</strong></td>
+                <td>Ayacucho</td>
+                <td><span class="badge badge-success">Verificado</span></td>
+              </tr>
+              <tr>
+                <td>Serenazgo Municipal de Huamanga</td>
+                <td>SERENAZGO</td>
+                <td><strong>066-312444</strong></td>
+                <td>Huamanga</td>
+                <td><span class="badge badge-success">Verificado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

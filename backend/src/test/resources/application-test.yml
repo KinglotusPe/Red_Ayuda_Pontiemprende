@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:red_ayuda_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+app:
+  jwt:
+    secret: super_secret_jwt_key_red_ayuda_minimum_32_characters_for_hmac_sha256
+    expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+  storage:
+    type: local
+    local:
+      upload-dir: ./target/test-storage
+  notification:
+    provider: dev_mock
