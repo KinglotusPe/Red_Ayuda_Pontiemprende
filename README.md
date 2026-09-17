@@ -30,11 +30,12 @@ Los instaladores han sido compilados y firmados automáticamente por los pipelin
 | **☕ Backend Servidor (Java 21 / Spring Boot)** | `red-ayuda-backend-v1.0.2.jar` | 72.1 MB | [⚙️ **Descargar JAR del Backend**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/red-ayuda-backend-v1.0.2.jar) |
 
 > 💡 **Instrucciones para instalar en Android:**
-> 1. Descarga el archivo [`RED-Ayuda-v1.0.1.apk`](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-v1.0.1.apk) en tu teléfono.
+> 1. Descarga el archivo [`RED-Ayuda-v1.0.2.apk`](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/RED-Ayuda-v1.0.2.apk) en tu teléfono.
 > 2. Ábrelo y selecciona *Instalar*. Si tu dispositivo lo solicita, habilita la opción *"Permitir instalar aplicaciones de orígenes desconocidos"*.
+> 3. Al abrir la app, puedes ingresar directamente tocando **"MODO EXPOSICIÓN (ACCESO DIRECTO)"** para tener 100% de las funciones activas sin necesidad de conectar a un servidor local.
 > 
 > 💡 **Instrucciones para instalar en iOS:**
-> - El archivo [`RED-Ayuda-iOS-v1.0.1.ipa`](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-iOS-v1.0.1.ipa) se puede instalar directamente mediante herramientas de sideloading como **AltStore**, **Sideloadly**, **TrollStore** o mediante Xcode Organizer.
+> - El archivo [`RED-Ayuda-iOS-v1.0.2.ipa`](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/RED-Ayuda-iOS-v1.0.2.ipa) se puede instalar directamente mediante herramientas de sideloading como **AltStore**, **Sideloadly**, **TrollStore** o mediante Xcode Organizer.
 
 ### 📦 Descarga alternativa desde GitHub Actions Artifacts:
 También puedes obtener las compilaciones generadas en cada commit desde [GitHub Actions Runs](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions):
