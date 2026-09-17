@@ -249,15 +249,22 @@ class ApiService {
     return EmergencyModel(
       id: 'EMG-DEMO-${DateTime.now().millisecondsSinceEpoch}',
       usuarioId: _currentUser?.id ?? 'usr-demo-001',
+      usuarioNombre: _currentUser?.nombres ?? 'Carlos Mendoza',
       tipo: tipo,
       estado: 'ACTIVA',
-      latitud: lat,
-      longitud: lon,
-      direccionAproximada: 'Plaza Mayor de Huamanga, Ayacucho',
-      nivelBateria: nivelBateria ?? 85,
       posibleCoaccion: false,
-      tokenSeguimientoWeb: 'share-demo-${DateTime.now().millisecondsSinceEpoch}',
-      createdAt: DateTime.now(),
+      nivelBateria: nivelBateria ?? 85,
+      dispositivoOffline: false,
+      fechaInicio: DateTime.now().toIso8601String(),
+      ultimaUbicacion: EmergencyLocation(
+        latitud: lat,
+        longitud: lon,
+        fuente: 'GPS',
+        estadoMovimiento: 'QUIETO',
+        timestamp: DateTime.now().toIso8601String(),
+      ),
+      eventos: [],
+      shareUrl: 'https://redayuda.pe/share/demo-${DateTime.now().millisecondsSinceEpoch}',
     );
   }
 
@@ -474,52 +481,52 @@ class ApiService {
       DirectoryItemModel(
         id: 'dir-1',
         nombre: 'Policía Nacional del Perú (PNP)',
-        numero: '105',
-        tipoEntidad: 'POLICIA',
+        tipo: 'POLICIA',
+        telefono: '105',
         region: 'Ayacucho',
+        provincia: 'Huamanga',
         distrito: 'Huamanga',
-        iconoUrl: 'local_police',
-        prioridadOrden: 1,
+        prioridad: 1,
       ),
       DirectoryItemModel(
         id: 'dir-2',
         nombre: 'Comisaría de Huamanga',
-        numero: '066-312012',
-        tipoEntidad: 'POLICIA',
+        tipo: 'POLICIA',
+        telefono: '066-312012',
         region: 'Ayacucho',
+        provincia: 'Huamanga',
         distrito: 'Huamanga',
-        iconoUrl: 'local_police',
-        prioridadOrden: 2,
+        prioridad: 2,
       ),
       DirectoryItemModel(
         id: 'dir-3',
         nombre: 'SAMU Ayacucho (Ambulancias)',
-        numero: '106',
-        tipoEntidad: 'MEDICA',
+        tipo: 'MEDICA',
+        telefono: '106',
         region: 'Ayacucho',
+        provincia: 'Huamanga',
         distrito: 'Huamanga',
-        iconoUrl: 'emergency',
-        prioridadOrden: 3,
+        prioridad: 3,
       ),
       DirectoryItemModel(
         id: 'dir-4',
         nombre: 'Compañía de Bomberos Huamanga 116',
-        numero: '116',
-        tipoEntidad: 'BOMBEROS',
+        tipo: 'BOMBEROS',
+        telefono: '116',
         region: 'Ayacucho',
+        provincia: 'Huamanga',
         distrito: 'Huamanga',
-        iconoUrl: 'fire_truck',
-        prioridadOrden: 4,
+        prioridad: 4,
       ),
       DirectoryItemModel(
         id: 'dir-5',
         nombre: 'Serenazgo Municipal de Huamanga',
-        numero: '066-312444',
-        tipoEntidad: 'SERENAZGO',
+        tipo: 'SERENAZGO',
+        telefono: '066-312444',
         region: 'Ayacucho',
+        provincia: 'Huamanga',
         distrito: 'Huamanga',
-        iconoUrl: 'shield',
-        prioridadOrden: 5,
+        prioridad: 5,
       ),
     ];
   }
@@ -550,19 +557,17 @@ class ApiService {
       NearbyAlertModel(
         id: 'alert-near-1',
         tipo: 'ROBO',
-        latitud: lat + 0.0018,
-        longitud: lon + 0.0012,
-        distanciaMetros: 240,
-        haceMinutos: 4,
+        distanciaAproximadaMetros: 240.0,
+        zonaAproximada: 'Jr. 28 de Julio (a 240m)',
+        timestamp: DateTime.now().subtract(const Duration(minutes: 4)).toIso8601String(),
         estado: 'ACTIVA',
       ),
       NearbyAlertModel(
         id: 'alert-near-2',
         tipo: 'MEDICA',
-        latitud: lat - 0.0035,
-        longitud: lon - 0.0020,
-        distanciaMetros: 580,
-        haceMinutos: 11,
+        distanciaAproximadaMetros: 580.0,
+        zonaAproximada: 'Av. Mariscal Cáceres (a 580m)',
+        timestamp: DateTime.now().subtract(const Duration(minutes: 11)).toIso8601String(),
         estado: 'EN_ATENCION',
       ),
     ];
@@ -593,29 +598,71 @@ class ApiService {
       EmergencyModel(
         id: 'EMG-HIST-01',
         usuarioId: _currentUser?.id ?? 'usr-demo-001',
+        usuarioNombre: _currentUser?.nombres ?? 'Carlos Mendoza',
         tipo: 'ROBO',
         estado: 'CANCELADA',
-        latitud: -13.1631,
-        longitud: -74.2236,
-        direccionAproximada: 'Jr. 28 de Julio, Huamanga',
-        nivelBateria: 78,
         posibleCoaccion: false,
-        tokenSeguimientoWeb: 'share-token-hist-1',
-        createdAt: DateTime.now().subtract(const Duration(days: 2)),
+        nivelBateria: 78,
+        dispositivoOffline: false,
+        fechaInicio: DateTime.now().subtract(const Duration(days: 2)).toIso8601String(),
+        ultimaUbicacion: EmergencyLocation(
+          latitud: -13.1631,
+          longitud: -74.2236,
+          fuente: 'GPS',
+          estadoMovimiento: 'QUIETO',
+          timestamp: DateTime.now().subtract(const Duration(days: 2)).toIso8601String(),
+        ),
+        eventos: [],
       ),
       EmergencyModel(
         id: 'EMG-HIST-02',
         usuarioId: _currentUser?.id ?? 'usr-demo-001',
+        usuarioNombre: _currentUser?.nombres ?? 'Carlos Mendoza',
         tipo: 'MEDICA',
         estado: 'ATENDIDA',
-        latitud: -13.1605,
-        longitud: -74.2250,
-        direccionAproximada: 'Av. Mariscal Cáceres, Huamanga',
-        nivelBateria: 92,
         posibleCoaccion: false,
-        tokenSeguimientoWeb: 'share-token-hist-2',
-        createdAt: DateTime.now().subtract(const Duration(days: 5)),
+        nivelBateria: 92,
+        dispositivoOffline: false,
+        fechaInicio: DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
+        ultimaUbicacion: EmergencyLocation(
+          latitud: -13.1605,
+          longitud: -74.2250,
+          fuente: 'GPS',
+          estadoMovimiento: 'QUIETO',
+          timestamp: DateTime.now().subtract(const Duration(days: 5)).toIso8601String(),
+        ),
+        eventos: [],
       ),
     ];
+  }
+
+  // --- Configuración de PIN y Coacción ---
+
+  Future<bool> setupPin(String pin, String pinCoaccion) async {
+    if (!_isDemoMode) {
+      try {
+        final response = await http
+            .post(
+              Uri.parse('$currentBaseUrl/usuarios/configurar-pin'),
+              headers: _headers(),
+              body: jsonEncode({
+                'pin': pin,
+                'pinCoaccion': pinCoaccion,
+              }),
+            )
+            .timeout(_timeoutDuration);
+
+        if (response.statusCode == 200 || response.statusCode == 204) {
+          return true;
+        }
+      } catch (e) {
+        debugPrint('Servidor no disponible para setupPin: $e');
+      }
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('demo_pin', pin);
+    await prefs.setString('demo_pin_coaccion', pinCoaccion);
+    return true;
   }
 }

@@ -53,7 +53,7 @@ jobs:
 
       - name: Build iOS (No Codesign)
         working-directory: ./mobile
-        run: flutter build ios --no-codesign --release -v
+        run: flutter build ios --no-codesign --release
 
       - name: Package iOS App Bundle & IPA
         working-directory: ./mobile

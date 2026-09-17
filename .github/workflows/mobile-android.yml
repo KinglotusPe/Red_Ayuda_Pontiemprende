@@ -64,7 +64,7 @@ jobs:
 
       - name: Build Android Debug APK
         working-directory: ./mobile
-        run: flutter build apk --debug -v
+        run: flutter build apk --debug
 
       - name: Build Android Release APK (Default Signed)
         working-directory: ./mobile
