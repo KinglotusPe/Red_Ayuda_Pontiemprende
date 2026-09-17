@@ -22,17 +22,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _checkAuth() async {
     await widget.apiService.init();
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 1200));
 
     if (!mounted) return;
 
     if (widget.apiService.accessToken != null) {
       Navigator.of(context).pushReplacement(
-        MaterialBar(builder: (_) => HomeScreen(apiService: widget.apiService)),
+        MaterialPageRoute(builder: (_) => HomeScreen(apiService: widget.apiService)),
       );
     } else {
       Navigator.of(context).pushReplacement(
-        MaterialBar(builder: (_) => LoginScreen(apiService: widget.apiService)),
+        MaterialPageRoute(builder: (_) => LoginScreen(apiService: widget.apiService)),
       );
     }
   }
@@ -46,17 +46,32 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 100,
-              height: 100,
+              width: 110,
+              height: 110,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.emergencyRed.withOpacity(0.15),
-                border: Border.all(color: AppColors.emergencyRed, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.emergencyRed.withOpacity(0.4),
+                    blurRadius: 25,
+                    spreadRadius: 4,
+                  ),
+                ],
               ),
-              child: const Icon(
-                Icons.health_and_safety_rounded,
-                color: AppColors.emergencyRed,
-                size: 55,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(55),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.emergencyRed.withOpacity(0.15),
+                      border: Border.all(color: AppColors.emergencyRed, width: 2),
+                    ),
+                    child: const Icon(Icons.health_and_safety_rounded, color: AppColors.emergencyRed, size: 55),
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 24),
@@ -64,9 +79,9 @@ class _SplashScreenState extends State<SplashScreen> {
               'RED AYUDA',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 28,
+                fontSize: 30,
                 fontWeight: FontWeight.w900,
-                letterSpacing: 2,
+                letterSpacing: 2.5,
               ),
             ),
             const SizedBox(height: 8),
@@ -93,8 +108,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-}
-
-class MaterialBar extends MaterialPageRoute {
-  MaterialBar({required super.builder});
 }

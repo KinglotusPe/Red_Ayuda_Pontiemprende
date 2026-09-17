@@ -52,7 +52,37 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.background,
       appBar: _currentIndex == 0
           ? AppBar(
-              title: const Text('RED AYUDA', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5)),
+              leading: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => const Icon(Icons.health_and_safety_rounded, color: AppColors.emergencyRed),
+                  ),
+                ),
+              ),
+              title: Row(
+                children: [
+                  const Text('RED AYUDA', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5, fontSize: 18)),
+                  if (widget.apiService.isDemoMode) ...[
+                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0284C7).withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: const Color(0xFF38BDF8), width: 0.8),
+                      ),
+                      child: const Text(
+                        'DEMO',
+                        style: TextStyle(color: Color(0xFF38BDF8), fontSize: 10, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
               actions: [
                 IconButton(
                   icon: const Icon(Icons.notifications_none_rounded),

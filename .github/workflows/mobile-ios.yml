@@ -38,6 +38,11 @@ jobs:
           if [ -f /tmp/mobile_backup/Info.plist ]; then
             cp -f /tmp/mobile_backup/Info.plist ios/Runner/Info.plist
           fi
+          if [ -d ios/Runner/Assets.xcassets/AppIcon.appiconset ]; then
+            for f in ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png; do
+              [ -f "$f" ] && cp -f assets/images/logo.png "$f" 2>/dev/null || true
+            done
+          fi
 
       - name: Install Dependencies
         working-directory: ./mobile

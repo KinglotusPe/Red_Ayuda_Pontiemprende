@@ -45,6 +45,9 @@ jobs:
           if [ -f /tmp/mobile_backup/AndroidManifest.xml ]; then
             cp -f /tmp/mobile_backup/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
           fi
+          for d in android/app/src/main/res/mipmap-*; do
+            [ -d "$d" ] && cp -f assets/images/logo.png "$d/ic_launcher.png" 2>/dev/null || true
+          done
 
       - name: Verify Flutter & Environment
         working-directory: ./mobile

@@ -1,11 +1,17 @@
-# RED AYUDA
-> *“Una población organizada, una ciudad más segura”*
+<p align="center">
+  <img src="mobile/assets/images/logo.png" alt="RED AYUDA Logo" width="130" style="border-radius: 50%; box-shadow: 0 0 20px rgba(225, 29, 72, 0.4);" />
+</p>
 
-![Release](https://img.shields.io/github/v/release/KinglotusPe/Red_Ayuda_Pontiemprende?style=flat-square&color=success&label=Release%20Oficial)
-![Android CI](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-android.yml/badge.svg)
-![iOS CI](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-ios.yml/badge.svg)
-![Backend CI](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/backend-ci.yml/badge.svg)
-![Admin Web](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/admin-web-ci.yml/badge.svg)
+<h1 align="center">RED AYUDA</h1>
+<p align="center"><em>“Una población organizada, una ciudad más segura”</em></p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/KinglotusPe/Red_Ayuda_Pontiemprende?style=flat-square&color=success&label=Release%20Oficial" alt="Release" />
+  <img src="https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-android.yml/badge.svg" alt="Android CI" />
+  <img src="https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/mobile-ios.yml/badge.svg" alt="iOS CI" />
+  <img src="https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/backend-ci.yml/badge.svg" alt="Backend CI" />
+  <img src="https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/actions/workflows/admin-web-ci.yml/badge.svg" alt="Admin Web" />
+</p>
 
 **RED AYUDA** es una plataforma tecnológica de alerta temprana y coordinación ciudadana ante emergencias personales, médicas y de seguridad. Su primera implementación operativa está configurada para **Ayacucho, Perú** (Plaza Mayor de Huamanga, Comisarías PNP, Hospital Regional, SAMU y Serenazgo), con una arquitectura modular lista para escalar a nivel nacional.
 
@@ -13,15 +19,15 @@
 
 ## 📥 Enlaces Directos de Descarga Oficial
 
-Los instaladores han sido compilados y firmados automáticamente por los pipelines de GitHub Actions. Puedes descargarlos directamente a continuación o desde la sección oficial de [Releases de GitHub](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/tag/v1.0.1):
+Los instaladores han sido compilados y firmados automáticamente por los pipelines de GitHub Actions. Puedes descargarlos directamente a continuación o desde la sección oficial de [Releases de GitHub](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases):
 
 | Plataforma / Componente | Archivo Descargable | Tamaño | Enlace de Descarga Directa |
 | :--- | :--- | :--- | :--- |
-| **🤖 Android (Instalación Directa)** | `RED-Ayuda-v1.0.1.apk` | 22.4 MB | [📲 **Descargar APK para Android**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-v1.0.1.apk) |
-| **🤖 Android (Google Play Store Bundle)** | `RED-Ayuda-v1.0.1.aab` | 22.5 MB | [📦 **Descargar AAB (Play Store)**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-v1.0.1.aab) |
-| **🍎 iOS (Instalación Sideload / AltStore / TrollStore)** | `RED-Ayuda-iOS-v1.0.1.ipa` | 23.0 MB | [🍏 **Descargar IPA para iOS**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-iOS-v1.0.1.ipa) |
-| **🍎 iOS (Runner Bundle ZIP)** | `RED-Ayuda-iOS-Runner-v1.0.1.zip` | 23.0 MB | [🗜️ **Descargar Runner ZIP (iOS)**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-iOS-Runner-v1.0.1.zip) |
-| **☕ Backend Servidor (Java 21 / Spring Boot)** | `red-ayuda-backend-v1.0.1.jar` | 72.1 MB | [⚙️ **Descargar JAR del Backend**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/red-ayuda-backend-v1.0.1.jar) |
+| **🤖 Android (Instalación Directa)** | `RED-Ayuda-v1.0.2.apk` | 22.4 MB | [📲 **Descargar APK para Android**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/RED-Ayuda-v1.0.2.apk) |
+| **🤖 Android (Google Play Store Bundle)** | `RED-Ayuda-v1.0.2.aab` | 22.5 MB | [📦 **Descargar AAB (Play Store)**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/RED-Ayuda-v1.0.2.aab) |
+| **🍎 iOS (Instalación Sideload / AltStore / TrollStore)** | `RED-Ayuda-iOS-v1.0.2.ipa` | 23.0 MB | [🍏 **Descargar IPA para iOS**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/RED-Ayuda-iOS-v1.0.2.ipa) |
+| **🍎 iOS (Runner Bundle ZIP)** | `RED-Ayuda-iOS-Runner-v1.0.2.zip` | 23.0 MB | [🗜️ **Descargar Runner ZIP (iOS)**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/RED-Ayuda-iOS-Runner-v1.0.2.zip) |
+| **☕ Backend Servidor (Java 21 / Spring Boot)** | `red-ayuda-backend-v1.0.2.jar` | 72.1 MB | [⚙️ **Descargar JAR del Backend**](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.2/red-ayuda-backend-v1.0.2.jar) |
 
 > 💡 **Instrucciones para instalar en Android:**
 > 1. Descarga el archivo [`RED-Ayuda-v1.0.1.apk`](https://github.com/KinglotusPe/Red_Ayuda_Pontiemprende/releases/download/v1.0.1/RED-Ayuda-v1.0.1.apk) en tu teléfono.
