@@ -12,6 +12,7 @@ class AppColors {
   static const Color surfaceLight = Color(0xFF334155); // Slate 700
 
   // Colores Semánticos de Estado
+  static const Color primaryBlue = Color(0xFF0284C7); // Azul Corporativo
   static const Color successGreen = Color(0xFF10B981); // Esmeralda
   static const Color warningOrange = Color(0xFFF59E0B); // Ámbar
   static const Color infoBlue = Color(0xFF38BDF8);    // Celeste cielo
