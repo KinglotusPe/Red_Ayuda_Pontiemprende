@@ -43,13 +43,17 @@ jobs:
         working-directory: ./mobile
         run: flutter pub get
 
+      - name: Analyze Dart Code
+        working-directory: ./mobile
+        run: flutter analyze --no-fatal-infos
+
       - name: Run Flutter Tests
         working-directory: ./mobile
         run: flutter test
 
       - name: Build iOS (No Codesign)
         working-directory: ./mobile
-        run: flutter build ios --no-codesign --release
+        run: flutter build ios --no-codesign --release -v
 
       - name: Package iOS App Bundle & IPA
         working-directory: ./mobile

@@ -54,13 +54,17 @@ jobs:
         working-directory: ./mobile
         run: flutter pub get
 
+      - name: Analyze Dart Code
+        working-directory: ./mobile
+        run: flutter analyze --no-fatal-infos
+
       - name: Run Flutter Tests
         working-directory: ./mobile
         run: flutter test
 
       - name: Build Android Debug APK
         working-directory: ./mobile
-        run: flutter build apk --debug
+        run: flutter build apk --debug -v
 
       - name: Build Android Release APK (Default Signed)
         working-directory: ./mobile
